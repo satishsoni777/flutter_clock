@@ -55,9 +55,7 @@ class _AnalogClockState extends State<AnalogClock> {
   getImageFromAsset() async {
     image = await load(textureName);
     textStyle = await textureText();
-    setState(() {
-      isImageloaded = true;
-    });
+    setState(() {});
   }
 
   Future<ui.Image> load(String asset) async {
@@ -70,13 +68,13 @@ class _AnalogClockState extends State<AnalogClock> {
   Future<TextStyle> textureText() async {
     Float64List matrix4 = new Matrix4.identity().storage;
     return TextStyle().copyWith(
-      fontFamily: 'SnowtopCaps',
+        fontFamily: 'SnowtopCaps',
         fontSize: 25,
         height: 1.2,
         fontWeight: FontWeight.bold,
         foreground: Paint()
-          ..shader =
-              ImageShader(image, TileMode.repeated, TileMode.repeated, matrix4));
+          ..shader = ImageShader(
+              image, TileMode.repeated, TileMode.repeated, matrix4));
   }
 
   @override
@@ -114,14 +112,13 @@ class _AnalogClockState extends State<AnalogClock> {
     return Stack(
       children: <Widget>[
         Container(
-            height: double.infinity,
-            width: double.infinity,
-            // child: SvgPicture.asset('assets/snow1.svg'),
-            child: Image.asset(
-              'assets/snow2.png',
-              // repeat: ImageRepeat.repeatY,
-              fit: BoxFit.fitWidth,
-            ),),
+          height: double.infinity,
+          width: double.infinity,
+          child: Image.asset(
+            'assets/snow2.png',
+            fit: BoxFit.fitWidth,
+          ),
+        ),
         Row(
           children: <Widget>[
             Expanded(
@@ -129,18 +126,6 @@ class _AnalogClockState extends State<AnalogClock> {
                 child: Container(
                     margin: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                      // color: Colors.blue,
-                      // boxShadow: [
-                      //   BoxShadow(offset: Offset(0, 10), color: Colors.blue),
-                      //   BoxShadow(offset: Offset(10, 0.0), color: Colors.white)
-                      // ],
-                      // image: DecorationImage(
-                      //     // colorFilter: ColorFilter.mode(
-                      //     //     Colors.blue, BlendMode.colorDodge),
-                      //     image: AssetImage(
-                      //       'assets/background.jpg',
-                      //     ),
-                      //     repeat: ImageRepeat.repeat),
                       shape: BoxShape.circle,
                       // gradient: RadialGradient(colors: [
                       //   Colors.transparent,
@@ -162,7 +147,7 @@ class _AnalogClockState extends State<AnalogClock> {
                         children: <Widget>[
                           DrawnHand(
                             angleRadians: _now.second * radiansPerTick,
-                            color: Colors.blue,
+                            color: Colors.red,
                             size: .9,
                             thickness: 4,
                           ),
@@ -170,38 +155,19 @@ class _AnalogClockState extends State<AnalogClock> {
                             angleRadians: _now.minute * radiansPerTick,
                             color: Colors.blueAccent,
                             size: .8,
-                            thickness: 10,
+                            thickness: 8,
                           ),
                           DrawnHand(
                             angleRadians: _now.hour * radiansPerHour +
                                 (_now.minute / 60) * radiansPerHour,
                             color: Colors.blueAccent,
                             size: .5,
-                            thickness: 15,
+                            thickness: 12,
                           ),
-                          // ContainerHand(
-                          //   color: Colors.transparent,
-                          //   size: 0.6,
-                          //   angleRadians: 27,
-                          //   child: Transform.translate(
-                          //     offset: Offset(0.0, -60.0),
-                          //     child: Container(
-                          //       width: 25,
-                          //       height: 150,
-                          //       decoration: BoxDecoration(
-                          //           color: Colors.blue,
-                          //           // backgroundBlendMode: BlendMode.colorDodge,
-                          //           gradient: LinearGradient(
-                          //             colors: [Colors.blue[100],Colors.white,Colors.blue[100]]
-                          //           ),
-                          //           borderRadius: BorderRadius.circular(10)),
-                          //     ),
-                          //   ),
-                          // ),
                           Container(
                             alignment: Alignment.center,
-                            height: 40,
-                            width:40,
+                            height: 25,
+                            width: 25,
                             decoration: BoxDecoration(
                                 gradient: RadialGradient(colors: [
                                   Colors.white,
@@ -221,10 +187,6 @@ class _AnalogClockState extends State<AnalogClock> {
                                 color: Colors.red,
                                 shape: BoxShape.circle),
                           )
-                          // CustomPaint(
-                          //   painter: _CenterCicle(),
-                          //   child: Container(),
-                          // )
                         ],
                       ),
                     ))),
@@ -236,8 +198,7 @@ class _AnalogClockState extends State<AnalogClock> {
                   style: textStyle,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.
-                    start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
                         _temperature,
@@ -256,26 +217,5 @@ class _AnalogClockState extends State<AnalogClock> {
         ),
       ],
     );
-  }
-}
-
-class _DrawTimer extends CustomPainter {
-  Paint _paint = Paint();
-
-  _DrawTimer() {
-    _paint.color = Colors.red;
-  }
-  @override
-  void paint(Canvas canvas, Size size) {
-    final center = (Offset.zero & size).center;
-    Path _path = Path();
-    canvas.drawCircle(center, 20, _paint);
-
-    print(size.width);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return false;
   }
 }

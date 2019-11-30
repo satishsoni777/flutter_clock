@@ -31,9 +31,8 @@ class ClockDialPainter extends CustomPainter {
   ];
 
   ClockDialPainter({this.clockText = ClockText.roman})
-      : tickPaint = new Paint()
-          ..color = Colors.blue,
-          // ..blendMode = BlendMode.dstATop,
+      : tickPaint = new Paint()..color = Colors.blue,
+        // ..blendMode = BlendMode.dstATop,
         textPainter = new TextPainter(
           textAlign: TextAlign.center,
           textDirection: TextDirection.rtl,
